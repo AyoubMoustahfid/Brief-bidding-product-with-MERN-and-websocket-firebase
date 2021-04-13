@@ -8,10 +8,7 @@ import axios from 'axios'
 import toastr from 'toastr';
 import "toastr/build/toastr.css";
 
-import SigninGoogle from './SigninGoogle'
-import Signout from './Signout'
-import ChatRoom from './ChatRoom'
-import ChatMessage from './ChatMessage'
+import ChatApp from './ChatApp'
 
 
 import firebase from 'firebase/app';
@@ -173,46 +170,46 @@ const form = () => (
     <div className="d-grid">
         <button type="submit" className="btn btn-primary">Submit</button>
     </div>
-
-    { JSON.stringify(bid)}
     </form>
 )
 
-const [person] = useAuthState(auth);
+
 return (
 <div className="container">
 
-   {itemParse.noItem ? (
-    <h1>Product not found</h1>
-    ): (
-    <div className="row">
-        <div className="col-12">
-            <img src={`${API_URL}/profile/photo/${itemParse.currentItem[0]._id}`} />
-        </div>
+  <div className="row align-items-center">
+      <div className="col-6">
+      {itemParse.noItem ? (
+        <h1>Product not found</h1>
+        ): (
         <div className="row">
-            <div className="col-6">
-                {listProduct()}
+            <div className="col-12">
+                <img src={`${API_URL}/profile/photo/${itemParse.currentItem[0]._id}`} width="300px" height="300px" style={{borderRadius: "50%"}} className="my-3" />
             </div>
-
-            <div className="col-6">
-                {form()}
+            <div className="row">
+                <div className="col-12">
+                    {listProduct()}
+                </div>
+    
+                <div className="col-6 mx-auto my-3">
+                    {form()}
+                </div>
             </div>
         </div>
-    </div>
-    )}
+        )}
 
-    <div className='row'>
-       <div className="col-12">
-       <div class="card">
-       <div class="card-header">
-          <Signout/>
-       </div>
-       <div class="card-body">
-       {person ? <ChatRoom /> : <SigninGoogle />}
-       </div>
-     </div>
-       </div>
-    </div>
+      </div>
+      <div className="col-6">
+      <div className="row">
+      <div class="card">
+          <div class="card-body">
+              <ChatApp/>
+          </div>
+      </div>
+  </div>
+      </div>
+  </div>
+
 </div>
 )
 }
